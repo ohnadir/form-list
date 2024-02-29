@@ -5,20 +5,30 @@ import { Button, Form, Input } from 'antd';
 
 const From = () => {
     const onFinish = (values) => {
-        console.log('Received values of form:', values);
+
+        const value = {
+            package_name: values.package_name,
+            image_limit: values?.image_limit,
+            word_limit: values?.word_limit,
+            duration: values?.duration,
+            amount: values?.amount,
+            names: values?.names?.map(item => (JSON.stringify({ feature: item })))
+        }
+        console.log('Received values of form:', value);
     };
+    const data = [
+        { "feature": "I like cats" },
+        { "feature": "I like cats2" },
+        { "feature": "I like cats3" },
+        { "feature": "I like cats4" },
+      ]
     const initialFormValues = {
         package_name: "Gold",
         image_limit: "3",
         word_limit: "1500",
         duration: "6",
         amount: "400",
-        names: [
-          "I like cats" ,
-          "I like cats2" ,
-          "I like cats3",
-          "I like cats4" ,
-        ]
+        names: data.map(item=> item?.feature)
     };
     return (
         <div className="bg-white rounded-2xl border p-5">
@@ -35,7 +45,7 @@ const From = () => {
                         style={{marginBottom: 0}}
                     >
                         <Input
-                            name='package_name'
+                            
                             placeholder="Enter Feature" 
                             prefix={false}
                             style={{
